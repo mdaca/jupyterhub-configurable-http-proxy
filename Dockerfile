@@ -3,7 +3,7 @@ ARG BASE_IMAGE_PATH=mdaca/base-images/ironbank-alpine
 ARG BASE_TAG=3.20.2
 ARG BASE_IMAGE=${BASE_REGISTRY}/${BASE_IMAGE_PATH}:${BASE_TAG}
 ARG $BASE_IMAGE
-FROM $BASE_IAMGE
+FROM $BASE_IMAGE
 # ref: https://hub.docker.com/_/node?tab=tags&name=lts-alpine
 
 # Set labels based on the Open Containers Initiative (OCI):
