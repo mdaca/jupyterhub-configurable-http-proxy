@@ -1,4 +1,9 @@
-FROM node:lts-alpine3.18
+ARG BASE_REGISTRY=201959883603.dkr.ecr.us-east-2.amazonaws.com
+ARG BASE_IMAGE_PATH=mdaca/base-images/ironbank-alpine
+ARG BASE_TAG=3.20.2
+ARG BASE_IMAGE=${BASE_REGISTRY}/${BASE_IMAGE_PATH}:${BASE_TAG}
+ARG $BASE_IMAGE
+FROM $BASE_IAMGE
 # ref: https://hub.docker.com/_/node?tab=tags&name=lts-alpine
 
 # Set labels based on the Open Containers Initiative (OCI):
