@@ -34,7 +34,7 @@ jobs:
           aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com
  
           # Set ENV for Docker build
-          ECR_REPOSITORY=mdaca/jupyter/jupyter-hub
+          ECR_REPOSITORY=mdaca/jupyter/jupyer-http-proxy
           REPOSITORY=$ECR_REPOSITORY
           REGISTRY=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
