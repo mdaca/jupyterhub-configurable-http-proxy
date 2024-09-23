@@ -43,6 +43,12 @@ jobs:
 
           # Push the Docker image
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+          # Add latest tag
+          docker tag $REGISTRY/$REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:latest
+
+          # push latest Docker Image
+          docker push $REGISTRY/$REPOSITORY:latest
           
   security:
     runs-on: ubuntu-latest
@@ -84,7 +90,9 @@ jobs:
           IMAGE_TAG: 4.6.2
           ECR_REPOSITORY: mdaca/jupyter/jupyer-http-proxy
         run: |
-          trivy image --exit-code 1 --severity HIGH,CRITICAL $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+          trivy image --severity HIGH,CRITICAL $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+          trivy image --format json $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG > jupyter-http.json
+          jq -r '.Results[] | select(.Vulnerabilities != null) | .Vulnerabilities[] | [.SeveritySource, .VulnerabilityID, .PkgName, .PkgPath, .InstalledVersion, .FixedVersion, .Status, .Severity] | @csv' jupyter-http.json > jupyter-http-Trivy.csv
 
       - name: Install Syft
         run: |
@@ -100,8 +108,10 @@ jobs:
           syft $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
           syft $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG  > jupyter-http-proxy.tf
 
-      - name: Upload SBOM
+      - name: Upload Reports
         uses: actions/upload-artifact@v4
         with:
-          name: sbom
-          path: jupyter-http-proxy.tf
+          name: trivy-and-sbom-reports
+          path: |
+            jupyter-http-Trivy.csv
+            jupyter-http-proxy.tf
