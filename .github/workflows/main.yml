@@ -23,7 +23,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           IMAGE_TAG: 4.6.2
-          ECR_REPOSITORY: mdaca/jupyter/jupyer-http-proxy
+          ECR_REPOSITORY: mdaca/jupyter/jupyter-http-proxy
         run: |
           # Set ENV for AW Cred
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
@@ -34,7 +34,7 @@ jobs:
           aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com
  
           # Set ENV for Docker build
-          ECR_REPOSITORY=mdaca/jupyter/jupyer-http-proxy
+          ECR_REPOSITORY=mdaca/jupyter/jupyter-http-proxy
           REPOSITORY=$ECR_REPOSITORY
           REGISTRY=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
@@ -66,7 +66,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           IMAGE_TAG: 4.6.2
-          ECR_REPOSITORY: mdaca/jupyter/jupyer-http-proxy
+          ECR_REPOSITORY: mdaca/jupyter/jupyter-http-proxy
         run: |
           # Set ENV for AW Cred
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
@@ -88,7 +88,7 @@ jobs:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           IMAGE_TAG: 4.6.2
-          ECR_REPOSITORY: mdaca/jupyter/jupyer-http-proxy
+          ECR_REPOSITORY: mdaca/jupyter/jupyter-http-proxy
         run: |
           trivy image --severity HIGH,CRITICAL $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
           trivy image --format json $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG > jupyter-http.json
@@ -103,7 +103,7 @@ jobs:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           IMAGE_TAG: 4.6.2
-          ECR_REPOSITORY: mdaca/jupyter/jupyer-http-proxy
+          ECR_REPOSITORY: mdaca/jupyter/jupyter-http-proxy
         run: |
           syft $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
           syft $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG  > jupyter-http-proxy.tf
