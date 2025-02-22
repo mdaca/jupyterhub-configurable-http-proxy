@@ -1,7 +1,7 @@
 # Define build arguments
 ARG BASE_REGISTRY=201959883603.dkr.ecr.us-east-2.amazonaws.com
 ARG BASE_IMAGE_PATH=mdaca/base-images/ironbank-alpine
-ARG BASE_TAG=3.20.3
+ARG BASE_TAG=3.20.6
 
 # Construct the full base image path
 ARG BASE_IMAGE=${BASE_REGISTRY}/${BASE_IMAGE_PATH}:${BASE_TAG}
