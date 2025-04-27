@@ -3,7 +3,7 @@ name: Build and Push Docker Image to ECR
 on:
   push:
     branches:
-      - main
+      - 4.6.2
 
 jobs:
   build:
@@ -22,7 +22,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          IMAGE_TAG: 4.6.4.2
+          IMAGE_TAG: 4.6.4.3
           ECR_REPOSITORY: mdaca/jupyter/jupyter-http-proxy
         run: |
           # Set ENV for AW Cred
@@ -65,7 +65,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          IMAGE_TAG: 4.6.4.2
+          IMAGE_TAG: 4.6.4.3
           ECR_REPOSITORY: mdaca/jupyter/jupyter-http-proxy
         run: |
           # Set ENV for AW Cred
@@ -87,7 +87,7 @@ jobs:
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          IMAGE_TAG: 4.6.4.2
+          IMAGE_TAG: 4.6.4.3
           ECR_REPOSITORY: mdaca/jupyter/jupyter-http-proxy
         run: |
           trivy image $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
@@ -102,7 +102,7 @@ jobs:
         env:
           AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
-          IMAGE_TAG: 4.6.4.2
+          IMAGE_TAG: 4.6.4.3
           ECR_REPOSITORY: mdaca/jupyter/jupyter-http-proxy
         run: |
           syft $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
